@@ -1,33 +1,32 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  let [count, setCount] = useState(0)
+
+  const addValue = () => {
+    // if (count <= 20) {
+    //   setCount(count++)
+    // }
+    setCount(count + 1)
+  }
+  const removeValue = () => {
+    // if (count >= 0) {
+    //   setCount(count--)
+    // }
+    setCount(count - 1)
+  }
 
   return (
     <>
+      <h1 className='text-3xl font-bold mb-8'>Hello React | By Tushar</h1>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h2 className='text-2xl font-bold'>Counter App</h2>
+        <h1 className='text-5xl font-extrabold m-10'>{count}</h1>
+        <button onClick={addValue} disabled={count >= 20} className='w-[75px] py-2 m-2 text-3xl rounded-md bg-red-500 text-white font-bold'>+</button>
+        <button onClick={removeValue} disabled={count <= 0} className='w-[75px] py-2 m-2 text-3xl rounded-md bg-blue-500 text-white font-bold'>-</button>
+
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
