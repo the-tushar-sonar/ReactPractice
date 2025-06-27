@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import "./App.css";
 
 function App() {
@@ -6,6 +6,8 @@ function App() {
   const [numAllowed, setNumAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState("");
+
+  const passRef=useRef(null)
 
   const passwordGenerator = useCallback(() => {
     let pass = "";
@@ -20,14 +22,19 @@ function App() {
     setPassword(pass);
   }, [length, numAllowed, charAllowed, setPassword]);
 
+  const copyPassToClipboard=useCallback(()=>{
+    passRef.current?.select()
+    window.navigator.clipboard.writeText(password)
+  },[password])
+
   useEffect(()=>{
     passwordGenerator()
   },[length,numAllowed,charAllowed,passwordGenerator])
 
   return (
     <>
-      <div className="w-full max-w-md mx-auto shadow-md rounded-lg p-4 my-8 text-orange-500 bg-gray-700">
-        <h1 className="text-4xl text-center text-white font-bold item-center my-3">
+      <div className=" w-full max-w-md mx-auto shadow-md rounded-lg p-4 my-8 text-orange-500 bg-gray-700">
+        <h1 className="text-4xl text-center text-white font-bold item-center my-4 mb-6">
           Password Generator
         </h1>
         <div className="flex shadow rounded-lg overflow-hidden mb-4 ">
@@ -37,8 +44,10 @@ function App() {
             className="bg-white outline-none rounded-lg w-full py-1 px-3 mr-2"
             placeholder="password"
             readOnly
+            ref={passRef}
           />
-          <button className="outline-none rounded-lg bg-blue-700 text-white px-3 py-0.5 shrink-0">
+          <button className="outline-none rounded-lg bg-blue-700 text-white px-3 py-0.5 shrink-0"
+          onClick={copyPassToClipboard}>
             Copy
           </button>
         </div>
@@ -47,7 +56,7 @@ function App() {
             <input
               type="range"
               min={6}
-              max={100}
+              max={50}
               value={length}
               className="cursor-pointer"
               onChange={(e) => {
