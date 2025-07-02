@@ -1,1 +1,6 @@
-@import "tailwindcss";
+/* src/index.css (or global.css)—this is your Tailwind entry */
+@import "tailwindcss";  
+
+/* define the `dark:` variant whenever `.dark` appears on an ancestor */
+@variant dark (&:where(.dark, .dark *));
+
