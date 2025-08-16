@@ -1,6 +1,6 @@
-import React, { useActionState, useCallback, useEffect } from "react";
-import { get, set, useForm } from "react-hook-form";
-import { Button, Input, Select, RTE } from "../index";
+import React, { useCallback, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { Button, Input, Select, RTE } from "..";
 import appwriteService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -17,7 +17,7 @@ function PostForm({ post }) {
     });
 
   const navigate = useNavigate();
-  const userData = useSelector((state) => state.user.userData);
+  const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
     if (post) {
@@ -59,7 +59,7 @@ function PostForm({ post }) {
       return value
         .trim()
         .toLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
 
     return "";
@@ -112,7 +112,7 @@ function PostForm({ post }) {
           type="file"
           label="Featured Image"
           className="mb-4"
-          accept="image/png, image/jpeg, image/jpg, image/gif"
+          accept="image/png, image/jpg, image/jpeg, image/gif"
           {...register("image", {
             required: !post,
           })}
