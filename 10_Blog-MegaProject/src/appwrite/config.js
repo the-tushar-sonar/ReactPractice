@@ -118,9 +118,21 @@ export class Service {
     }
   }
 
-  getFilePreview(fileId) {
-    return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+  getFileView(fileId) {
+    return this.bucket.getFileView(conf.appwriteBucketId, fileId);
   }
+
+
+  // get file preview <- is not working currently
+  // async getFilePreview(fileId) {
+  //   try {
+  //     await this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+  //     return true;
+  //   } catch (error) {
+  //     console.log("Appwrite service :: getFilePreview :: error", error);
+  //     return false;
+  //   }
+  // }
 }
 const service = new Service();
 

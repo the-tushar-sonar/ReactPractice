@@ -7,10 +7,9 @@ function AllPosts() {
   useEffect(() => {}, []);
   appwriteService.getPosts([]).then((posts) => {
     if (posts) {
-      setPosts(posts);
+      setPosts(posts.documents);
     }
   });
-
   return (
     <div className="w-full py-8">
       <Container>
